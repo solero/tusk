@@ -18,6 +18,7 @@ try:
 except ImportError:
     uvloop = None
 
+#never gonna give you up, never gonna let you downnn, never gonna run around and desert youuu!
 
 class Tusk:
 
@@ -88,3 +89,5 @@ class Tusk:
                 
         self.logger.info(f'Listening on {host}:{self.port}')
         self.server_coroutine = asyncio.create_task(self.server.serve_forever())
+        self.server_coroutine = asyncio.create_task(self.server.serve_forever())
+
