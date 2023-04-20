@@ -1,22 +1,32 @@
 from tusk.places.constants import ViewMode
 from dataclasses import dataclass
-from typing import Any, Callable, Option
+from typing import Any, Callable, Optional
 import inspect
 
 inputs = {}
-objects = {}
+preloaded_objects = {}
+_objects = {}
 places = {}
 
-def Object(place, art_index):
+def Object(place):
     def decorate(cls):
-        cls.sprite_id = art_index
-        objects[place] = objects.get(place, {})
-        objects[place][art_index] = cls
+        _objects[place] = _objects.get(place, {})
+        _objects[place][cls.art_index] = cls
         return cls
     return decorate
     
 def get_object(place, art_index):
-    return objects[place][art_index]
+    return _objects[place][art_index]
+    
+def PreloadObject(place):
+    def decorate(cls):
+        preloaded_objects[place] = preloaded_objects.get(place, [])
+        preloaded_objects[place].append(cls)
+        return cls
+    return decorate
+    
+def get_preload_objects(place):
+    return preloaded_objects.get(place, [])
     
 
 @dataclass
@@ -27,7 +37,7 @@ class InputObj:
     event: int
     modifier: int
     command: str
-    callback: Option[Callable] = None
+    callback: Optional[Callable] = None
 
     
 def Input(place: str, obj: InputObj):
@@ -67,8 +77,8 @@ def Place(place_id, object_id, instance_id, name):
         return cls
     return decorate
 
-def get_place(place, art_index):
-    return places[place][art_index]
+def get_place(place):
+    return places[place]
 
 class DefaultWorld:
     
@@ -87,7 +97,7 @@ class DefaultWorld:
             alpha_cutoff: int = 48
         
         class Camera:
-            view_mode: int = ViewMode.SIDE
+            view_mode: int = int(ViewMode.SIDE)
             lock_view: bool = False
             tile_size: int = 64
             elevation_scale: float = -1

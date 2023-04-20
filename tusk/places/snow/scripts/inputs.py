@@ -6,6 +6,7 @@ from tusk.places.constants import MouseTarget, InputModifier, InputEvent
 @PlaceInput(InputObj(
     input_id = "use",
     script_id = "0:10",
+    event = InputEvent.MOUSE_CLICK,
     target = MouseTarget.GAME_OBJECT,
     modifier = InputModifier.NONE,
     command = "use"

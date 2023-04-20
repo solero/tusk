@@ -36,8 +36,8 @@ def slash_command(cmd, place=None):
                 await fn(p, *args)
             else:
                 fn(p, *args)
-        slash_command_handlers[cmd] = slash_command_handlers.get(cmd, {})
-        slash_command_handlers[cmd].append(SlashCommandObj(
+        slash_command_handlers[cmd] = slash_command_handlers.get(cmd, [])
+        slash_command_handlers[cmd].insert(0, SlashCommandObj(
             command=cmd,
             callback=callback
         ))
@@ -48,7 +48,7 @@ def authenticated(fn):
     async def handle(p, *args):
         if not p.user:
             return p.close()
-        return fn(p, *args)
+        return await fn(p, *args)
     return handle
 
 
@@ -59,8 +59,8 @@ def server_command(evt):
                 await fn(*args)
             else:
                 fn(*args)
-        server_handlers[evt] = server_handlers.get(evt, {})
-        slash_command_handlers[evt].append(callback)
+        server_handlers[evt] = server_handlers.get(evt, [])
+        server_handlers[evt].insert(0, callback)
         return fn
     return decorate
     

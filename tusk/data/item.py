@@ -1,6 +1,6 @@
 from functools import cached_property
 
-from houdini.data import AbstractDataCollection, db
+from tusk.data import AbstractDataCollection, db
 
 
 class Item(db.Model):

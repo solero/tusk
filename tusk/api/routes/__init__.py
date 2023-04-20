@@ -2,7 +2,7 @@ from fastapi import APIRouter, Response
 from tusk.api.routes.wns import world_name_service
 
 api = APIRouter(
-    '/api'
+    prefix='/api'
 )
 api.include_router(world_name_service)
 

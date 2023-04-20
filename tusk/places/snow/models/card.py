@@ -1,6 +1,18 @@
-from pydantic import BaseModel
+from tusk.places.snow.models import CamelCaseModel
+from enum import IntFlag, auto
 
-class PowerCard(BaseModel):
+class Element(IntFlag):
+    FIRE = auto()
+    SNOW = auto()
+
+class PlayerSelectPayload(CamelCaseModel):
+    game: str = "snow"
+    name: str
+    power_cards_fire: int = 0
+    power_cards_snow: int = 0
+    power_cards_water: int = 0
+
+class PowerCard(CamelCaseModel):
     asset: str = ""
     card_id: int 
     color: str 
