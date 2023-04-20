@@ -89,5 +89,4 @@ class Tusk:
                 
         self.logger.info(f'Listening on {host}:{self.port}')
         self.server_coroutine = asyncio.create_task(self.server.serve_forever())
-        self.server_coroutine = asyncio.create_task(self.server.serve_forever())
 
