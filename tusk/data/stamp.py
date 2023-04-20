@@ -1,4 +1,4 @@
-from houdini.data import AbstractDataCollection, db
+from tusk.data import AbstractDataCollection, db
 
 
 class Stamp(db.Model):
